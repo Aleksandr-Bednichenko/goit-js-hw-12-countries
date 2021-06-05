@@ -2899,23 +2899,24 @@ refs.input.addEventListener('input', (0, _lodash.default)(function (e) {
 
 function onSearch(e) {
   e.preventDefault();
+  onClear();
   var searchQuery = e.target.value;
 
-  _fetchCountries.default.fetchCountries(searchQuery).then(function (data) {
-    if (!data) {
-      return;
-    } else if (data.length > 10) {
-      (0, _core.error)({
-        text: 'To many matches found. Please enter a more specific query'
-      });
-    } else if (data.length >= 2 && data.length <= 10) {
-      renderCountryList(data);
-    } else if (data.length === 1) {
-      renderCountryListItem(data);
-    }
-  }).catch(onFetchError);
-
-  onClear();
+  if (!searchQuery) {
+    _fetchCountries.default.fetchCountries(searchQuery).then(function (data) {
+      if (!data) {
+        return;
+      } else if (data.length > 10) {
+        (0, _core.error)({
+          text: 'To many matches found. Please enter a more specific query'
+        });
+      } else if (data.length >= 2 && data.length <= 10) {
+        renderCountryList(data);
+      } else if (data.length === 1) {
+        renderCountryListItem(data);
+      }
+    }).catch(onFetchError);
+  }
 }
 
 function renderCountryList(list) {
@@ -2963,7 +2964,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53302" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53821" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
