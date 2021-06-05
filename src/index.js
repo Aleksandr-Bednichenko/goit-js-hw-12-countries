@@ -23,7 +23,9 @@ refs.input.addEventListener('input',  debounce(e => {
 
 function onSearch(e) {
   e.preventDefault();
-  const searchQuery = e.target.value 
+  onClear(); 
+  const searchQuery = e.target.value ;
+  if (!searchQuery) {
   API.fetchCountries(searchQuery)
   .then(data => {    
     if (!data) {
@@ -38,13 +40,14 @@ function onSearch(e) {
         renderCountryListItem(data);
     }
   })
-  .catch(onFetchError) 
-  onClear()  
-}
+  .catch(onFetchError); 
+  
+}}
+  
 
  function renderCountryList(list){
    const markUp = listTemplate(list)
-   refs.countryInfo.innerHTML = markUp
+   refs.countryInfo.innerHTML = markUp;
 }
 
  function renderCountryListItem(item){
